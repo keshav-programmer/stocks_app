@@ -7,7 +7,8 @@ const Header = () => {
         <header className="sticky top-0 header">
             <div className="container header-wrapper">
                 <Link href="/">
-                <Image src="/assets/icons/logo.svg" alt="Signalist logo" width={140} height={32} className="h-8 w-auto cursor-pointer"/>
+                <Image src="/assets/images/x.png" alt="Signalist logo" width={140} height={32} className="h-10 w-auto cursor-pointer"/>
+                <p className="font-bold text-3xl text-white absolute left-20 top-4">Stocky</p>
                 </Link>
                 <nav className="hidden sm:block">
                     <NavItems />
@@ -18,5 +19,4 @@ const Header = () => {
         </header>
     )
 }
-
 export default Header;
