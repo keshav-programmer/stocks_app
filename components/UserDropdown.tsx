@@ -67,16 +67,6 @@ const UserDropdown = () => {
         <nav className="sm:hidden">
           <NavItems />
         </nav>
-        {/* <DropdownMenuGroup>
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
-          <DropdownMenuItem>Profile</DropdownMenuItem>
-          <DropdownMenuItem>Billing</DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuGroup>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>Team</DropdownMenuItem>
-          <DropdownMenuItem>Subscription</DropdownMenuItem>
-        </DropdownMenuGroup> */}
       </DropdownMenuContent>
     </DropdownMenu>
   );
