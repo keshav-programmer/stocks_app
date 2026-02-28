@@ -3,36 +3,44 @@
 import { Container } from "lucide-react";
 import { useRef, useEffect } from "react";
 
-const UseTradingViewWidget = (
+const useTradingViewWidget = (
   scriptUrl: string,
   config: Record<string, unknown>,
   height: number = 600,
 ) => {
-  const ContainerRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (!ContainerRef.current) return;
-    if (ContainerRef.current.dataset.loaded) return;
-    ContainerRef.current.innerHTML = `<div class="tradingview-widget-container_widget" style="width:100%; height:${height}px;"></div>`;
-    
+    const container = containerRef.current;
+    if (!container) return;
+    if (container.dataset.loaded) return;
+
+    // create inner widget div with correct double-underscore class
+    const widgetDiv = document.createElement("div");
+    widgetDiv.className = "tradingview-widget-container__widget";
+    widgetDiv.style.width = "100%";
+    widgetDiv.style.height = `${height}px`;
+
     const script = document.createElement("script");
-    script.src =scriptUrl;
+    script.src = scriptUrl;
     script.async = true;
-    script.innerHTML = JSON.stringify(config);
-    ContainerRef.current.appendChild(script);
-    ContainerRef.current.dataset.loaded = "true";
+    script.type = "text/javascript";
+    // the embed script reads the JSON configuration from its text content
+    script.textContent = JSON.stringify(config);
 
-    return ()=>{
-        if(ContainerRef.current){
-            ContainerRef.current.innerHTML = '';
-            delete ContainerRef.current.dataset.loaded;
-        }
-    }
+    container.appendChild(widgetDiv);
+    container.appendChild(script);
+    container.dataset.loaded = "true";
 
+    return () => {
+      if (container) {
+        container.innerHTML = "";
+        delete container.dataset.loaded;
+      }
+    };
   }, [scriptUrl, height, config]);
 
-
-  return ContainerRef;
+  return containerRef;
 };
 
-export default UseTradingViewWidget;
+export default useTradingViewWidget;
